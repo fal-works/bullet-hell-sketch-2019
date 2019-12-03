@@ -1,0 +1,9 @@
+patterns:
+  "main":
+    - endless:
+      - loop:
+          count: 2
+          pattern:
+            - shot_velocity: [set, 3 + math.random(3), math.random(360)]
+            - fire:
+      - wait: 1

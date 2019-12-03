@@ -1,0 +1,17 @@
+patterns:
+  "main":
+    - shot_speed: [set, 2]
+    - endless:
+      - shot_direction_angular_velocity: [set, 0.5]
+      - radial_sweep
+      - shot_direction_angular_velocity: [set, -0.5]
+      - radial_sweep
+  "radial_sweep":
+    - loop:
+        count: 8
+        pattern:
+          - radial:
+              ways: 16
+              pattern: unit
+          - wait: 4
+    - wait: 16

@@ -1,0 +1,13 @@
+patterns:
+  "main":
+    - shot_speed: [set, 2]
+    - endless:
+      - shot_direction: [set, math.random(360)]
+      - radial:
+          ways: 16
+          pattern:
+            - nway:
+                ways: 7
+                interval_angle: 2
+                pattern: unit
+      - wait: 60

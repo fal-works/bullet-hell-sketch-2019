@@ -1,0 +1,156 @@
+patterns:
+  "unit":
+    - fire:
+
+definitions:
+  "burst":
+    # Parameters:
+    #   $count
+    #   $interval_frames
+    #   $pattern
+    #   $bind
+    - fire:
+        hide: true
+        bind: $bind
+        pattern:
+          - shot_velocity: [set, this.speed, this.direction]
+          - speed: [set, 0]
+          - loop:
+              count: $count - 1
+              pattern:
+                - $pattern
+                - wait: $interval_frames
+          - $pattern
+          - vanish:
+  "burst_overtaking":
+    # Parameters:
+    #   $count
+    #   $interval_frames
+    #   $pattern
+    #   $shot_speed_change
+    #   $bind
+    - burst:
+        count: $count
+        interval_frames: $interval_frames
+        bind: $bind
+        pattern:
+          - $pattern
+          - shot_speed: [add, $shot_speed_change]
+  "burst_sweaping":
+    # Parameters:
+    #   $count
+    #   $interval_frames
+    #   $pattern
+    #   $shot_direction_change
+    #   $bind
+    - burst:
+        count: $count
+        interval_frames: $interval_frames
+        bind: $bind
+        pattern:
+          - $pattern
+          - shot_direction: [add, $shot_direction_change]
+  "burst_nway":
+    - burst:
+        count: $count
+        interval_frames: $interval_frames
+        bind: $bind
+        pattern:
+          - nway:
+              ways: $ways
+              interval_angle: $interval_angle
+              pattern: $pattern
+  "burst_whip":
+    # Parameters:
+    #   $count
+    #   $interval_frames
+    #   $pattern
+    #   $shot_speed_change
+    #   $shot_direction_change
+    #   $bind
+    - burst:
+        count: $count
+        interval_frames: $interval_frames
+        bind: $bind
+        pattern:
+          - $pattern
+          - shot_speed: [add, $shot_speed_change]
+          - shot_direction: [add, $shot_direction_change]
+
+  "line":
+    # Parameters:
+    #   $count
+    #   $pattern
+    #   $shot_speed_change
+    - shot:
+      - loop:
+          count: $count
+          pattern:
+            - $pattern
+            - shot_speed: [add, $shot_speed_change]
+  "line_2":
+    # Parameters:
+    #   $count
+    #   $pattern
+    #   $shot_speed_factor
+    - shot:
+      - variable: [speed_change, set, "shot.speed * ($shot_speed_factor - 1) / $count"]
+      - loop:
+          count: $count - 1
+          pattern:
+            - $pattern
+            - shot_speed: [add, speed_change]
+      - $pattern
+  "nway":
+    # Parameters:
+    #   $ways
+    #   $interval_angle
+    #   $pattern
+    - shot:
+      - shot_direction: [add, -0.5 * ($ways - 1) * $interval_angle]
+      - loop:
+          count: $ways
+          pattern:
+            - $pattern
+            - shot_direction: [add, $interval_angle]
+  "radial":
+    # Parameters:
+    #   $ways
+    #   $pattern
+    - shot:
+      - loop:
+          count: $ways
+          pattern:
+            - $pattern
+            - shot_direction: [add, 360 / $ways]
+  "nway_gun":
+    # Parameters:
+    #   $ways
+    #   $interval_angle
+    #   $distance
+    #   $pattern
+    - shot:
+      - shot_position: [set, $distance, shot.direction - 0.5 * ($ways - 1) * $interval_angle]
+      - shot_direction: [add, -0.5 * ($ways - 1) * $interval_angle]
+      - loop:
+          count: $ways
+          pattern:
+            - $pattern
+            - shot_bearing: [add, $interval_angle]
+            - shot_direction: [add, $interval_angle]
+  "radial_gun":
+    - shot:
+      - shot_position: [set, $distance, shot.direction]
+      - loop:
+          count: $ways
+          pattern:
+            - $pattern
+            - shot_bearing: [add, 360 / $ways]
+            - shot_direction: [add, 360 / $ways]
+
+  "agent":
+    # Parameters:
+    #   $pattern
+    - fire:
+        category: agent
+        pattern: $pattern
