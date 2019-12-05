@@ -1,0 +1,18 @@
+patterns:
+  "main":
+    - shot_velocity: [set, 10, 0]
+    - radial:
+        ways: 2
+        pattern:
+          - fire:
+              bind: true
+              pattern:
+                - speed: [set, 0.001, 30]
+                - bearing_angular_velocity: [set, -3]
+                - shot_velocity: [set, 2, this.direction]
+                - burst_sweaping:
+                    count: 65535
+                    interval_frames: 1
+                    bind: true
+                    shot_direction_change: 12
+                    pattern: unit
