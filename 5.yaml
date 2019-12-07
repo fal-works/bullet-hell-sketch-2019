@@ -1,0 +1,29 @@
+patterns:
+  "main":
+    - shot_distance: [set, 120]
+    - "4_bit":
+        factor: 1
+        delay: 0
+    - "4_bit":
+        factor: -1
+        delay: 48
+
+definitions:
+  "4_bit":
+    - fire:
+        category: agent
+        bind: true
+        pattern:
+          - bearing_angular_velocity: [set, 2 * $factor]
+          - wait: $delay
+          - endless:
+              - loop:
+                  count: 8
+                  pattern:
+                    - shot_velocity: [set, 5, this.direction_to_target]
+                    - line:
+                        count: 7
+                        pattern: unit
+                        shot_speed_change: 0.3
+                    - wait: 4
+              - wait: 64
