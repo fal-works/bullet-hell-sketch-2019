@@ -1,0 +1,20 @@
+patterns:
+  "main":
+    - shot_speed: [set, 5]
+    - endless:
+      - shot_direction: [set, this.direction_to_target + math.randomSigned(120)]
+      - nway:
+          ways: 3
+          interval_angle: 45
+          pattern:
+            - fire:
+              - wait: 30
+              - shot_velocity: [set, 5, this.direction_to_target + math.randomSigned(30)]
+              - burst_overtaking:
+                  count: 24
+                  interval_frames: 2
+                  pattern: unit
+                  shot_speed_change: 0.5
+                  bind: false
+              - vanish:
+      - wait: 30
