@@ -1,0 +1,33 @@
+patterns:
+  "main":
+    - shot_speed: [set, 6]
+    - endless:
+      - radial:
+          ways: 7
+          pattern:
+            - burst:
+                count: 8
+                interval_frames: 4
+                bind: false
+                pattern:
+                  - split:
+                      pattern:
+                        - split:
+                            pattern:
+                              - split:
+                                  pattern:
+                                    - fire:
+                                      - speed: [set, 3, 30]
+      - wait: 48
+      - shot_direction: [add, 15]
+
+definitions:
+  "split":
+    - fire:
+      - speed: [set, 1, 30]
+      - shot_velocity: [set, 6, this.direction]
+      - nway:
+          ways: 2
+          interval_angle: 120
+          pattern: $pattern
+      - vanish:
