@@ -1,0 +1,22 @@
+patterns:
+  "main":
+    - radial_gun:
+        distance: 120
+        ways: 16
+        pattern:
+          - fire:
+              bind: true
+              pattern:
+                - bearing_angular_velocity: [set, 0.5]
+                - shot_velocity: [set, 2, this.bearing]
+                - parallel:
+                  - endless:
+                    - loop:
+                        count: 4
+                        pattern:
+                          - nway:
+                              ways: 2
+                              interval_angle: 120
+                              pattern: unit
+                          - wait: 6
+                    - wait: 16
