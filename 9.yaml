@@ -1,0 +1,20 @@
+patterns:
+  "main":
+    - shot_speed: [set, 4]
+    - endless:
+      - radial:
+          ways: 16
+          pattern:
+            - fire:
+              - shot_velocity: [set, 2, this.direction]
+              - wait: 15
+              - loop:
+                  count: 8
+                  pattern:
+                    - nway:
+                        ways: 2
+                        interval_angle: 120
+                        pattern: unit
+                    - wait: 4
+      - wait: 120
+      - shot_direction: [add, 11.5]
