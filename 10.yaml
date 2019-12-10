@@ -1,0 +1,23 @@
+patterns:
+  "main":
+    - shot_speed: [set, 4]
+    - endless:
+      - shot_direction: [set, this.direction_to_target - 75 + math.randomSigned(30)]
+      - 10_fire
+      - wait: 45
+      - shot_direction: [set, this.direction_to_target + 75 + math.randomSigned(30)]
+      - 10_fire
+      - wait: 45
+  "10_fire":
+    - line:
+        count: 12
+        shot_speed_change: 1
+        pattern:
+          - fire:
+            - speed: [set, 1, 30]
+            - shot_velocity: [set, 4, this.direction_to_target]
+            - line:
+                count: 10
+                shot_speed_change: 0.5
+                pattern: unit
+            - vanish:
