@@ -1,0 +1,53 @@
+patterns:
+  "main":
+    - shot_speed: [set, 4]
+    - parallel:
+      - shot:
+        - endless:
+          - loop:
+              count: 40
+              pattern:
+                - loop:
+                    count: 3
+                    pattern:
+                      - "decelerate":
+                          end_speed: 3
+                      - shot_direction: [add, 1.5]
+                - loop:
+                    count: 3
+                    pattern:
+                      - "decelerate":
+                          end_speed: 2
+                      - shot_direction: [add, 1.5]
+          - wait: 90
+      - shot:
+        - shot_speed: [set, 0]
+        - endless:
+          - "rotate":
+              rotation_velocity: 0.25
+          - wait: 120
+          - "rotate":
+              rotation_velocity: -0.25
+          - wait: 120
+
+definitions:
+  "decelerate":
+    - fire:
+      - wait: 60
+      - speed: [set, $end_speed, 30]
+  "rotate":
+    - loop:
+        count: 2
+        pattern:
+          - radial:
+              ways: 24
+              pattern:
+                - shot_bearing: [set, shot.direction]
+                - fire:
+                    bind: true
+                    pattern:
+                      - bearing_angular_velocity: [set, $rotation_velocity]
+                      - endless:
+                        - distance: [add, 1]
+                        - wait: 1
+          - wait: 6
