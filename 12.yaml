@@ -1,0 +1,20 @@
+patterns:
+  "main":
+    - shot_speed: [set, 8]
+    - endless:
+      - shot_direction: [set, math.randomSigned(360)]
+      - fire:
+        - speed: [set, 1, 30]
+        - shot_velocity: [set, 12, this.direction_to_target + math.randomSigned(30)]
+        - fire:
+            hide: true
+            pattern:
+              - shot_velocity: [set, 0.001, this.direction]
+              - endless:
+                - fire:
+                  - wait: 60
+                  - speed: [add, 2, 60]
+                - wait: 1
+                - shot_direction: [add, 20]
+        - vanish:
+      - wait: 90
