@@ -1,0 +1,19 @@
+patterns:
+  "main":
+    - shot_direction: [set, 45]
+    - radial_gun:
+        ways: 3
+        distance: 120
+        pattern: 13_bit
+  "13_bit":
+    - fire:
+        bind: true
+        pattern:
+          - bearing_angular_velocity: [set, 1]
+          - shot_velocity: [set, 10, this.bearing]
+          - endless:
+            - radial:
+                ways: 4
+                pattern:
+                  - fire:
+            - wait: 1
