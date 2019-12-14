@@ -1,0 +1,19 @@
+patterns:
+  "main":
+    - shot_speed: [set, 4]
+    - endless:
+      - radial_gun:
+          ways: 32
+          distance: 80
+          pattern:
+            - shot_direction: [add, 90]
+            - nway:
+                ways: 8
+                interval_angle: 12
+                pattern:
+                  - fire:
+                    - speed: [set, 1, 30]
+                    - parallel:
+                      - direction: [add, 210, 60]
+                      - speed: [set, 2, 60]
+      - wait: 240
