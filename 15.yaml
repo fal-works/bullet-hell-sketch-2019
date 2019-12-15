@@ -1,0 +1,34 @@
+patterns:
+  "main":
+    - endless:
+      - shot_velocity: [set, 6 + math.random(5), 90 + math.randomSigned(45)]
+      - 15_fire
+      - wait: 40
+      - shot_velocity: [set, 6 + math.random(5), 270 - math.randomSigned(45)]
+      - 15_fire
+      - wait: 40
+  "15_fire":
+    - fire:
+      - speed: [set, 1, 30]
+      - shot_velocity: [set, 8, this.direction_to_target + math.randomSigned(5)]
+      - nway:
+          ways: 5
+          interval_angle: 30
+          pattern:
+            - "turn":
+                direction: this.direction_to_target
+      - vanish:
+
+definitions:
+  "turn":
+    - fire:
+      - shot_velocity: [set, 1, $direction]
+      - speed: [set, 1, 45]
+      - line:
+          count: 12
+          shot_speed_change: 0.5
+          pattern:
+            - fire:
+              - wait: 30
+              - speed: [add, 5, 60]
+      - vanish:
