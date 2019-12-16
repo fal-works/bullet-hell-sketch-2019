@@ -1,0 +1,22 @@
+patterns:
+  "main":
+    - shot_speed: [set, 6]
+    - endless:
+      - shot_direction: [set, 180 + math.randomSign() * 90 + math.randomSigned(60)]
+      - fire:
+        - wait: 30
+        - shot_velocity: [set, this.speed, this.direction_to_target + math.randomSigned(20)]
+        - burst:
+            count: 12
+            interval_frames: 3
+            pattern: unit
+        - vanish:
+      - burst:
+          count: 12
+          interval_frames: 3
+          pattern:
+            - fire:
+              - wait: 29
+              - vanish:
+      - wait: 15
+# TODO: improve language
