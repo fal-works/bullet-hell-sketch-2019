@@ -1,0 +1,33 @@
+patterns:
+  "main":
+    - endless:
+      - "17_bit":
+          factor: 1
+      - wait: 120
+      - "17_bit":
+          factor: -1
+      - wait: 120
+
+definitions:
+  "17_bit":
+    - radial_gun:
+        distance: 50
+        ways: 2
+        pattern:
+          - fire:
+              bind: true
+              pattern:
+                - bearing_angular_velocity: [set, 1.5 * $factor]
+                - shot_speed: [set, 0.0001]
+                - parallel:
+                  - endless:
+                    - distance: [add, 1]
+                    - wait: 1
+                  - sequence:
+                    - wait: 30
+                    - endless:
+                      - shot_direction: [set, this.bearing + 15 * $factor]
+                      - fire:
+                        - wait: 60
+                        - speed: [set, 3, 120]
+                      - wait: 4
